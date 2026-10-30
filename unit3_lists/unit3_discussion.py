@@ -22,7 +22,15 @@ def insert_at(lst, index, value):
     - Use comments to explain how insertion performance may vary depending on
       where the insertion occurs.
     """
-    pass
+
+    # Inserting a value shifts the existing elements at and after the specified
+    # index one position to the right to make room for the new element.
+    lst.insert(index, value)
+
+    # Insertion at the beginning requires shifting all elements, while insertion
+    # in the middle shifts only the elements after the insertion point.
+    # Insertion at the end does not require shifting existing elements,
+    # making it generally faster.
 
 
 def delete_at(lst, index):
@@ -36,7 +44,13 @@ def delete_at(lst, index):
     - Return None if the index is invalid.
     - Add comments explaining why index validation and safe deletion are important.
     """
-    pass
+    # Using try/except checks whether the index is valid before completing the deletion. 
+    # This prevents the program from crashing if the index does not exist.
+    try:
+        return lst.pop(index)
+    except IndexError:
+        # Return None if the index is invalid so the program can continue safely.
+        return None
 
 
 def search_value(lst, value):
@@ -49,7 +63,15 @@ def search_value(lst, value):
     - Return -1 if the value is not found.
     - Add comments explaining why this is a linear search and why it scans sequentially.
     """
-    pass
+    # enumerate() provides both the index and the current element.
+    # A linear search checks each element sequentially, starting at the
+    # beginning of the list and moving forward until a match is found.
+    for index, item in enumerate(lst):
+        if item == value:
+            return index
+
+    # If the loop finishes without finding a match, return -1.
+    return -1    
 
 
 def main():
