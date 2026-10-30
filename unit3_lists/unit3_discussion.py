@@ -92,7 +92,28 @@ def main():
     # 5. Use comments to explain each step in the implementation.
 
     print("\n=== INSERTION TESTS ===")
-    print("TODO: Create a list and demonstrate insertions.")
+
+    # Example findings already flagged by the user.
+    flagged_findings = [
+        "BRCA1: Example variant A",
+        "CFTR: Example variant B"
+    ]
+
+    print("Original flagged findings:", flagged_findings)
+
+    # Add a finding at the beginning.
+    insert_at(flagged_findings, 0, "HBB: Example variant C")
+    print("After insertion at beginning:", flagged_findings)
+
+    # Add a finding in the middle.
+    insert_at(flagged_findings, 1, "APOE: Example variant D")
+    print("After insertion in middle:", flagged_findings)
+
+    # Add a finding at the end.
+    insert_at(flagged_findings, len(flagged_findings),
+              "TP53: Example variant E")
+    print("After insertion at end:", flagged_findings)
+
 
     # ===============================
     # TODO (Student): DELETION TESTS
@@ -108,7 +129,32 @@ def main():
     # 4. Use comments to clearly explain what is happening in the output.
 
     print("\n=== DELETION TESTS ===")
-    print("TODO: Demonstrate deletions from multiple positions.")
+
+     # A separate list of findings currently flagged by the user.
+    flagged_findings = [
+        "BRCA1: Example variant A",
+        "CFTR: Example variant B",
+        "HBB: Example variant C",
+        "APOE: Example variant D",
+        "TP53: Example variant E"
+    ]
+
+    print("Original flagged findings:", flagged_findings)
+
+    # Remove the first flagged finding.
+    removed = delete_at(flagged_findings, 0)
+    print("Removed finding:", removed)
+    print("Updated list:", flagged_findings)
+
+    # Remove a finding from the middle.
+    removed = delete_at(flagged_findings, 1)
+    print("Removed finding:", removed)
+    print("Updated list:", flagged_findings)
+
+    # Remove the last finding.
+    removed = delete_at(flagged_findings, len(flagged_findings) - 1)
+    print("Removed finding:", removed)
+    print("Updated list:", flagged_findings)
 
     # ===============================
     # TODO (Student): SEARCH TESTS
@@ -121,7 +167,29 @@ def main():
     # 4. Use comments to explain each step.
 
     print("\n=== SEARCH TESTS ===")
-    print("TODO: Demonstrate searching for values.")
+
+    # Genes identified in the parsed genetic data.
+    parsed_genes = ["BRCA1", "BRCA2", "CFTR", "HBB", "APOE"]
+
+    print("Genes in parsed data:", parsed_genes)
+
+    # Search for a gene that exists.
+    target_gene = "CFTR"
+    result = search_value(parsed_genes, target_gene)
+
+    if result != -1:
+        print(f"{target_gene} found at index {result}.")
+    else:
+        print(f"{target_gene} was not found.")
+
+    # Search for a gene that does not exist.
+    target_gene = "EGFR"
+    result = search_value(parsed_genes, target_gene)
+
+    if result != -1:
+        print(f"{target_gene} found at index {result}.")
+    else:
+        print(f"{target_gene} was not found in the parsed data.")
 
     # ===============================
     # TODO (Student): EDGE CASES
@@ -137,7 +205,64 @@ def main():
     # - Use comments to explain each edge case.
 
     print("\n=== EDGE CASES ===")
-    print("TODO: Demonstrate at least two edge cases.")
+
+    # Edge case 1: Attempt to remove a finding using an invalid index.
+    test_findings = [
+        "BRCA1: Example variant A",
+        "CFTR: Example variant B"
+    ]
+
+    print("Original list:", test_findings)
+
+    removed = delete_at(test_findings, 10)
+
+    if removed is None:
+        print("Cannot remove finding: index 10 is invalid.")
+    else:
+        print("Removed finding:", removed)
+
+    print("List after attempted deletion:", test_findings)
+
+    # Edge case 2: Attempt to remove a finding from an empty list.
+    empty_findings = []
+
+    removed = delete_at(empty_findings, 0)
+
+    if removed is None:
+        print("Cannot remove finding: the list is empty.")
+
+    # Edge case 3: Insert a finding into an empty list.
+    insert_at(empty_findings, 0, "MYH7: Example variant F")
+
+    print("After inserting into empty list:", empty_findings)
+
+
+    # ===============================
+    # REAL-WORLD SCENARIO
+    # ===============================
+
+    print("\n=== REAL-WORLD SCENARIO ===")
+
+    # Simulate a user looking up a gene in parsed genetic data
+    # and flagging an associated finding for later reference.
+    parsed_genes = ["BRCA1", "BRCA2", "CFTR", "HBB", "APOE"]
+    flagged_findings = []
+
+    target_gene = "CFTR"
+    finding = "CFTR: Example variant B"
+
+    gene_index = search_value(parsed_genes, target_gene)
+
+    if gene_index != -1:
+        print(f"Gene {target_gene} found at index {gene_index}.")
+
+        insert_at(flagged_findings, len(flagged_findings), finding)
+        print("Finding added to flagged list.")
+
+    else:
+        print(f"Gene {target_gene} was not found.")
+
+    print("Flagged findings:", flagged_findings)
 
 
 
