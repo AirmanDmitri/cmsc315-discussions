@@ -130,7 +130,7 @@ def main():
 
     print("\n=== DELETION TESTS ===")
 
-     # A separate list of findings currently flagged by the user.
+    # A separate list of findings currently flagged by the user.
     flagged_findings = [
         "BRCA1: Example variant A",
         "CFTR: Example variant B",
