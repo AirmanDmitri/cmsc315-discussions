@@ -17,14 +17,16 @@ class Node:
         # TODO (Student):
         # Store the node's value and initialize references
         # to the left and right child nodes.
-        pass
+        self.value = value
+        self.left = None
+        self.right = None
 
 
 class BST:
     def __init__(self):
         # TODO (Student):
         # Initialize an empty Binary Search Tree.
-        pass
+        self.root = None
 
     def insert(self, value):
         """
@@ -37,7 +39,13 @@ class BST:
           whether a value is smaller or larger than the
           current node.
         """
-        pass
+        # Insertion depends on whether the value is smaller or larger 
+        # because a BST maintains a strict ordering property: 
+        # smaller values go left, and larger values go right. 
+        # This structure ensures the tree remains organized, allowing 
+        # future insertions and searches to quickly narrow down the path 
+        # instead of looking at every single node.
+        self.root = self._insert_recursive(self.root, value)
 
     def _insert_recursive(self, node, value):
         """
@@ -50,8 +58,21 @@ class BST:
         - Insert larger values into the right subtree.
         - Return the updated node reference.
         """
-        pass
+        # Base case: If None, the empty spot for the new node is found
+        if node is None:
+            return Node(value)
+            
+        # If the value is smaller than the current node's value, continues down the left branch.
+        if value < node.value:
+            node.left = self._insert_recursive(node.left, value)
+            
+        # If the value is larger (or equal), continues down the right branch.
+        else:
+            node.right = self._insert_recursive(node.right, value)
 
+        # Returns the updated node reference back up the chain so parent pointers stay connected
+        return node
+        
     def search(self, value):
         """
         TODO (Student):
@@ -63,14 +84,33 @@ class BST:
         - Add comments explaining why BST search is often
           more efficient than linear search.
         """
-        pass
+        # BST search is much more efficient than a linear search (O(log n) vs O(n))
+        # because the tree's strict ordering property allows us to eliminate 
+        # half of the remaining search space at every single step. 
+        # Instead of checking every node one by one, we compare the target value 
+        # to the current node and immediately discard an entire subtree (left or right).
+        return self._search_recursive(self.root, value)
 
     def _search_recursive(self, node, value):
         """
         TODO (Student):
         Implement recursive BST search.
         """
-        pass
+        # Base case 1: If None, the value is not in the tree
+        if node is None:
+            return False
+            
+        # Base case 2: The value is found
+        if node.value == value:
+            return True   
+            
+        # If the target value is smaller, looks down the left subtree
+        if value < node.value:
+            return self._search_recursive(node.left, value)
+            
+        # If the target value is larger, looks down the right subtree
+        else:
+            return self._search_recursive(node.right, value)
 
     def inorder(self):
         """
@@ -78,7 +118,9 @@ class BST:
         Return a list containing the values from an
         in-order traversal.
         """
-        pass
+        values = []
+        self._inorder_recursive(self.root, values)
+        return values
 
     def _inorder_recursive(self, node, values):
         """
@@ -92,7 +134,21 @@ class BST:
         - Add comments explaining why this traversal
           produces sorted output in a BST.
         """
-        pass
+        # Why this produces sorted output:
+        # In a BST, the structural property dictates that every node in the left subtree 
+        # is smaller and every node in the right subtree is larger. By recursively diving 
+        # all the way down to the smallest leaf on the left first, then recording the parent, 
+        # and then moving to the right, we naturally process and collect all elements in 
+        # ascending, sorted order.
+        if node is not None:
+            # 1. Visit the left subtree first (contains all values smaller than the current node)
+            self._inorder_recursive(node.left, values)
+            
+            # 2. Visit the current node (add its value to our list)
+            values.append(node.value)
+            
+            # 3. Visit the right subtree last (contains all values larger than the current node)
+            self._inorder_recursive(node.right, values)
 
 
 def main():
