@@ -167,7 +167,28 @@ def main():
     # 5. Use comments to explain why a BST is efficient at reducing search space for each step.
 
     print("\n=== TREE CONSTRUCTION ===")
-    print("TODO: Create a BST and insert multiple values.")
+
+    archive = BST()
+
+    historical_records = {
+        2012: "Repavement of ul. Chełmska",
+        1939: "Outbreak of World War II",
+        1902: "Construction of Os. Sielecka no. 42",
+        1950: "Reconstruction of residential buildings",
+        1895: "Early neighbourhood development",
+        1918: "Poland regains independence",
+        1945: "Postwar inventories and surveys",
+        2026: "Current architectural research",
+        1913: "Construction of the Muranowska Estate"
+    }
+
+    # Years are inserted in an unsorted order.
+    # Each comparison determines whether to follow the left
+    # or right subtree. This eliminates nodes in the opposite
+    # subtree from consideration, reducing the search space.
+    for year in historical_records:
+        archive.insert(year)
+        print(f"Inserted {year}: {historical_records[year]}")
 
     # ===============================
     # TODO (Student): IN-ORDER TRAVERSAL
@@ -180,7 +201,11 @@ def main():
     #    sorted output in a BST.
 
     print("\n=== IN-ORDER TRAVERSAL ===")
-    print("TODO: Display and explain traversal results.")
+    
+    # Visiting left, current node, and right produces ascending
+    # chronological order because of the BST ordering property.
+    for year in archive.inorder():
+        print(f"{year}: {historical_records[year]}")  
 
     # ===============================
     # TODO (Student): SEARCH TESTS
@@ -192,7 +217,14 @@ def main():
     # 3. Use comments to clearly explain the results.
 
     print("\n=== SEARCH TESTS ===")
-    print("TODO: Demonstrate BST searching.")
+
+    # Existing years should return True because they are present.
+    for year in [1902, 1939]:
+        print(f"Searching for {year}: {archive.search(year)}")
+
+    # Missing years return False when the search reaches an empty node.
+    for year in [1925, 2000]:
+        print(f"Searching for {year}: {archive.search(year)}")
 
     # ===============================
     # TODO (Student): EDGE CASES
@@ -209,7 +241,12 @@ def main():
     # Use comments to explain what happens and why.
 
     print("\n=== EDGE CASES ===")
-    print("TODO: Demonstrate and explain an edge case.")
+    # An empty tree has no root, so searching returns False
+    # and in-order traversal returns an empty list.
+    empty_archive = BST()
+
+    print("Empty tree search:", empty_archive.search(1900))
+    print("Empty tree traversal:", empty_archive.inorder())
 
 
 
