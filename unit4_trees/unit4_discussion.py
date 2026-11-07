@@ -84,11 +84,11 @@ class BST:
         - Add comments explaining why BST search is often
           more efficient than linear search.
         """
-        # BST search is much more efficient than a linear search (O(log n) vs O(n))
-        # because the tree's strict ordering property allows us to eliminate 
-        # half of the remaining search space at every single step. 
-        # Instead of checking every node one by one, we compare the target value 
-        # to the current node and immediately discard an entire subtree (left or right).
+        # The BST ordering property allows us to eliminate one of the
+        # two subtrees from consideration at each comparison. In a
+        # balanced tree, this significantly reduces the search space,
+        # resulting in an average time complexity of O(log n). However,
+        # an unbalanced tree can have a worst-case search time of O(n).
         return self._search_recursive(self.root, value)
 
     def _search_recursive(self, node, value):
