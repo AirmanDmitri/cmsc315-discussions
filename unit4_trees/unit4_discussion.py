@@ -89,28 +89,36 @@ class BST:
         # balanced tree, this significantly reduces the search space,
         # resulting in an average time complexity of O(log n). However,
         # an unbalanced tree can have a worst-case search time of O(n).
-        return self._search_recursive(self.root, value)
+        comparisons = [0]
+        result = self._search_recursive(self.root, value, comparisons)
 
-    def _search_recursive(self, node, value):
+        print(f"Number of comparisons made: {comparisons[0]}")
+
+        return result
+
+    def _search_recursive(self, node, value, comparisons):
         """
         TODO (Student):
         Implement recursive BST search.
         """
+        # Counts each search step, including the final None node
+        comparisons[0] += 1
+
         # Base case 1: If None, the value is not in the tree
         if node is None:
             return False
-            
+ 
         # Base case 2: The value is found
         if node.value == value:
             return True   
-            
+
         # If the target value is smaller, looks down the left subtree
         if value < node.value:
-            return self._search_recursive(node.left, value)
+            return self._search_recursive(node.left, value, comparisons)
             
         # If the target value is larger, looks down the right subtree
         else:
-            return self._search_recursive(node.right, value)
+            return self._search_recursive(node.right, value, comparisons)
 
     def inorder(self):
         """
@@ -150,6 +158,26 @@ class BST:
             # 3. Visit the right subtree last (contains all values larger than the current node)
             self._inorder_recursive(node.right, values)
 
+    def height(self):
+        """
+        Calculates the height of the BST.
+        """
+        return self._height_recursive(self.root)
+
+
+    def _height_recursive(self, node):
+        """
+        Recursively calculates the height of each subtree.
+        """
+        # Base case: An empty subtree has height 0
+        if node is None:
+            return 0
+
+        # Return 1 plus the height of the taller subtree
+        left_height = self._height_recursive(node.left)
+        right_height = self._height_recursive(node.right)
+
+        return 1 + max(left_height, right_height)
 
 def main():
     print("=== UNIT 4: BINARY SEARCH TREES ===")
@@ -190,6 +218,9 @@ def main():
         archive.insert(year)
         print(f"Inserted {year}: {historical_records[year]}")
 
+    # Display the height of the completed BST
+    print(f"\nTree height: {archive.height()} levels")
+
     # ===============================
     # TODO (Student): IN-ORDER TRAVERSAL
     # ===============================
@@ -223,7 +254,7 @@ def main():
         print(f"Searching for {year}: {archive.search(year)}")
 
     # Missing years return False when the search reaches an empty node.
-    for year in [1925, 2000]:
+    for year in [1925, 1955, 2000]:
         print(f"Searching for {year}: {archive.search(year)}")
 
     # ===============================
