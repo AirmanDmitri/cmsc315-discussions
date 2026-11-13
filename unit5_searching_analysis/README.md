@@ -47,7 +47,7 @@ I added a comparison counter to both search functions to measure how many elemen
 
 ### 4. Small Dataset Demonstration
 
-I created a small, sorted dataset containing ten passenger boarding pass numbers. I tested both search algorithms using a boarding pass number that existed in the list and another number that was not present. Both algorithms successfully located the existing boarding pass at index 4 and returned -1 for the missing value. I also compared their number of comparisons. Linear search required five comparisons to find the existing value and ten comparisons to establish that the missing value was not present. Binary search required only three and four comparisons, respectively. This demonstrated how binary search could locate values more efficiently even in a relatively small dataset.
+I created a small, sorted dataset containing ten passenger boarding pass numbers. I tested both search algorithms using a boarding pass number that existed in the list and another number that was not present. Both algorithms successfully located the existing boarding pass at index 4 and returned -1 for the missing value. I also compared their number of comparisons. Linear search required five comparisons to find the existing value and ten comparisons to establish that the missing value was not present. Binary search required only one and four comparisons, respectively. This demonstrated how binary search could locate values more efficiently even in a relatively small dataset.
 
 ### 5. Large Dataset Demonstration
 
@@ -55,7 +55,9 @@ I created a larger sorted dataset containing 10,000 consecutive numbers using Py
 
 ### 6. Edge-Case Testing
 
-I tested four edge cases to examine how both algorithms behaved under different conditions. First, I searched an empty list, which caused both algorithms to return -1 without performing any comparisons. Second, I tested a list containing only one element. Both algorithms successfully located the target at index 0 using one comparison. I then searched for the first and last elements of the original ten-element dataset. Linear search found the first element immediately but required ten comparisons to find the last one. Binary search required four comparisons for each search. These tests demonstrated how the position of a target and the size of a dataset can affect the number of comparisons required by each algorithm.
+I tested five edge cases to examine how both algorithms behaved under different conditions. First, I searched an empty list, which caused both algorithms to return -1 without performing any comparisons. Second, I tested a list containing only one element. Both algorithms successfully located the target at index 0 using one comparison. I then searched for the first and last elements of the original ten-element dataset. Linear search found the first element immediately but required ten comparisons to find the last one. Binary search required three comparisons for the first element and four for the last one. These tests demonstrated how the position of a target and the size of a dataset can affect the number of comparisons required by each algorithm.
+
+Finally, I tested both algorithms using an unsorted list. Linear search successfully found the target at index 8 after nine comparisons because it examines elements sequentially without depending on their order. Binary search returned -1 after three comparisons, even though the target was present. This demonstrated why binary search requires sorted data and why its results cannot be relied upon when that requirement is not met.
 
 ### 7. Real-World Scenario
 
